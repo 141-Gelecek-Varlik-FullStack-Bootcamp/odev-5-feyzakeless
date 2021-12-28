@@ -1,0 +1,81 @@
+﻿
+@*{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>*@
+
+@model IEnumerable<Pharmacy.Model.ModelMedicine.ListMedicineViewModel>
+
+@{
+    ViewBag.Title = "Pharmacy";
+}
+
+<div class="product-list-wrapper w-75 m-auto">
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Iuser)
+            </th>
+            <th>
+                <p>Güncelle</p>
+            </th>
+            <th>
+                <p>Sil</p>
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                @Html.HiddenFor(modelItem => item.Id)
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Stock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Iuser)
+                </td>
+                <td>
+                    <a class="btn btn-refreshing" data-toggle="tooltip" data-placement="bottom" title="Ürünü Güncelle" asp-action="UpdateMedicine" asp-controller="Medicine" asp-route-id="@item.Id" >
+                        <i class="fas fa-sync-alt"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Ürünü Sil" asp-action="DeleteMedicine" asp-controller="Medicine" asp-route-id="@item.Id">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

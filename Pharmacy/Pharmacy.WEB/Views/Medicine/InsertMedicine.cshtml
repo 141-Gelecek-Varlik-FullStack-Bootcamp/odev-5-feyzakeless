@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<form method="post" asp-controller="Medicine" asp-action="InsertMedicine">
+
+    <div class="mb-3">
+        <label for="Name" class="form-label">Medicine Name</label>
+        <input name="name" type="text" class="form-control" id="name" aria-describedby="authorizedIdHelp">
+    </div>
+
+    <div class="mb-3">
+        <label for="TicketCode" class="form-label">Medicine Ticket Code</label>
+        <input type="ticketCode" name="ticketCode" class="form-control" id="ticketCode">
+    </div>
+
+    <div class="mb-3">
+        <label for="Description" class="form-label">Medicine Description</label>
+        <input type="description" name="description" class="form-control" id="description">
+    </div>
+
+    <div class="mb-3">
+        <label for="Price" class="form-label">Medicine Price</label>
+        <input type="price" name="price" class="form-control" id="price">
+    </div>
+
+    <div class="mb-3">
+        <label for="Stock" class="form-label">Medicine Stock</label>
+        <input type="stock" name="stock" class="form-control" id="stock">
+    </div>
+
+    <div class="mb-3">
+        <label for="Iuser" class="form-label">Medicine IUser</label>
+        <input type="iuser" name="iuser" class="form-control" id="iuser">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Insert Medicine</button>
+</form>
