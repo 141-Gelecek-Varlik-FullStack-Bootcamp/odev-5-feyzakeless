@@ -37,6 +37,10 @@ namespace Pharmacy.WEB
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IMedicineService, MedicineService>();
             services.AddTransient<IPrescriptionService, PrescriptionService>();
+
+            
+            //services.AddScoped<LoginFilter>();
+            services.AddStackExchangeRedisCache(options => options.Configuration = "localhost:6379");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
