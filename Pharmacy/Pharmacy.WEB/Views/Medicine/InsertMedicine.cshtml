@@ -4,37 +4,43 @@
 @{
 }
 
-<form method="post" asp-controller="Medicine" asp-action="InsertMedicine">
-
-    <div class="mb-3">
-        <label for="Name" class="form-label">Medicine Name</label>
-        <input name="name" type="text" class="form-control" id="name" aria-describedby="authorizedIdHelp">
+<div class="product-list-wrapper w-75 m-auto">
+    <div class="page-title mb-3">
+        <h1>Medicine Adding Form</h1>
     </div>
+    <form method="post" asp-controller="Medicine" asp-action="InsertMedicine" class="insert-form p-4">
 
-    <div class="mb-3">
-        <label for="TicketCode" class="form-label">Medicine Ticket Code</label>
-        <input type="ticketCode" name="ticketCode" class="form-control" id="ticketCode">
-    </div>
+        <div class="mb-3">
+            <label for="Name" class="form-label">Medicine Name</label>
+            <input name="name" type="text" class="form-control" id="name" aria-describedby="authorizedIdHelp">
+        </div>
 
-    <div class="mb-3">
-        <label for="Description" class="form-label">Medicine Description</label>
-        <input type="description" name="description" class="form-control" id="description">
-    </div>
+        <div class="mb-3">
+            <label for="TicketCode" class="form-label">Medicine Ticket Code</label>
+            <input type="text" name="ticketCode" class="form-control" id="ticketCode">
+        </div>
 
-    <div class="mb-3">
-        <label for="Price" class="form-label">Medicine Price</label>
-        <input type="price" name="price" class="form-control" id="price">
-    </div>
+        <div class="mb-3">
+            <label for="Description" class="form-label">Medicine Description</label>
+            <input type="text" name="description" class="form-control" id="description">
+        </div>
 
-    <div class="mb-3">
-        <label for="Stock" class="form-label">Medicine Stock</label>
-        <input type="stock" name="stock" class="form-control" id="stock">
-    </div>
+        <div class="mb-3">
+            <label for="Price" class="form-label">Medicine Price</label>
+            <input type="text" name="price" class="form-control" id="price">
+        </div>
 
-    <div class="mb-3">
-        <label for="Iuser" class="form-label">Medicine IUser</label>
-        <input type="iuser" name="iuser" class="form-control" id="iuser">
-    </div>
+        <div class="mb-3">
+            <label for="Stock" class="form-label">Medicine Stock</label>
+            <input type="text" name="stock" class="form-control" id="stock">
+        </div>
 
-    <button type="submit" class="btn btn-primary">Insert Medicine</button>
-</form>
+        <div class="mb-3">
+            <label for="Iuser" class="form-label">Medicine IUser</label>
+            <input type="text" name="iuser" class="form-control" id="iuser">
+        </div>
+        <div class="button-wrapper d-flex justify-content-end mt-4">
+            <button type="submit" class="btn btn-primary">Insert Medicine</button>
+        </div>
+    </form>
+</div>
