@@ -29,6 +29,7 @@ namespace Pharmacy.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Hangfire kuruldu
             services.AddHangfire(config =>
                 config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer()
@@ -54,7 +55,7 @@ namespace Pharmacy.API
 
             services.AddControllers();
             
-
+            //Redis tanýmladýk
             services.AddStackExchangeRedisCache(options => options.Configuration = "localhost:6379");
             //services.AddMemoryCache();  //InMemoryCache i belirtiyoruz
 
@@ -100,6 +101,9 @@ namespace Pharmacy.API
                 () => serviceProvider.GetService<IPrintJob>().Print(),
                 "* * * * * "
                 );
+            recurringJobManager.AddOrUpdate("EmailOperation", 
+                () => serviceProvider.GetService<IEmailOperation>().sendEmail(),
+                Cron.Daily); //hergün sendEmail methodunu çalýþtýrýyoruz
         }
     }
 }
