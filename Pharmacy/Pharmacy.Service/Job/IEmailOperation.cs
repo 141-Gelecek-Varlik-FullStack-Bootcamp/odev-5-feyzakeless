@@ -5,6 +5,6 @@ namespace Pharmacy.Service.Job
 {
     public interface IEmailOperation
     {
-        public General<UserViewModel> sendEmail(int id);
+        public void sendEmail();
     }
 }

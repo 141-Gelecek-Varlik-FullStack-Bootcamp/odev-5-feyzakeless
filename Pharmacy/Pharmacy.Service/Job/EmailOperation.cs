@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MailKit.Net.Smtp;
+using MailKit.Security;
 using MimeKit;
 using Pharmacy.DB.Entities.DataContext;
 using Pharmacy.Model;
@@ -21,42 +22,42 @@ namespace Pharmacy.Service.Job
             mapper = _mapper;
         }
 
-        public General<UserViewModel> sendEmail(int id)
+        //Mail gönderme methodu
+        public void sendEmail()
         {
             var result = new General<UserViewModel>();
             using (var context = new PharmacyContext())
             {
-                var user = context.User.SingleOrDefault(i => i.Id == id);
+                //Kullanci tablosundan Silinmemis ve Mail gönderilmemis olanları çekiyoruz.
+                var userList = context.User.Where(x => !x.IsDeleted && !x.IsSendEmail).OrderBy(x => x.Id);
 
-                if (!user.IsSendEmail)
-                {
 
-                    var message = new MimeMessage();
-                    message.From.Add(new MailboxAddress("Pharmacy", "info@pharmacy.com"));
-                    message.To.Add(new MailboxAddress("User", user.Email));
-                    message.Subject = "Welcome to the pharmacy";
-                    message.Body = new TextPart("plain")
+                foreach (var user in userList)
+                { 
+                    var message = new MimeMessage(); //Mailkit objesi
+                    message.From.Add(new MailboxAddress("Pharmacy", "info@pharmacy.com")); //kimden gidecek
+                    message.To.Add(new MailboxAddress("User", user.Email)); //kime gidecek
+                    message.Subject = "Welcome to the pharmacy"; //Mailin konusu
+                    message.Body = new TextPart("plain") //Mailin body si
                     {
                         Text = "Dear"+user.Name+ ", Welcome To the Pharmacy!"
                     };
 
-                    using (var client = new SmtpClient())
+                    using (var client = new SmtpClient()) //smptp sağlayıcı
                     {
-                        client.Connect("smtp@gmail.com", 587, false);
-                        client.Authenticate("info@pharmacy.com", "visualstudio");
-                        client.Send(message);
+                        //client.Connect("smtp@gmail.com", 465, false);
+                        //client.Connect("smtp@gmail.com", 587, SecureSocketOptions.StartTls);
+                        client.Connect("smtp@gmail.com", 587, false); //port a bağlanıyoruz
+                        client.Authenticate("info@pharmacy.com", "visualstudio"); //kullanıcı adı ve şifreyi veriyoruz
+                        client.Send(message); //mesajı gönderiyoruz
                         client.Disconnect(true);
                     }
 
                     user.IsSendEmail = true;
                     context.SaveChanges();
-                    result.Entity = mapper.Map<UserViewModel>(user);
 
-                    result.IsSuccess = true;
                 }
             }
-
-            return result;
 
         }
     }
