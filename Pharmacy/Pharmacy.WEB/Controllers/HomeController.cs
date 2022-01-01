@@ -35,12 +35,13 @@ namespace Pharmacy.WEB.Controllers
             return View();
         }
 
-        
+        //Login get islemi
         public IActionResult Login()
         {
             return View(); 
         }
 
+        //Login post islemi
         [HttpPost]
         public IActionResult Login(LoginViewModel loginUser)
         {
