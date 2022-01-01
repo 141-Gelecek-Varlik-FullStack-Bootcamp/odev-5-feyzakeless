@@ -15,7 +15,7 @@ namespace Pharmacy.API.Controllers
     public class LoginFilter : Attribute, IActionFilter
     {
 
-        private readonly IDistributedCache distributedCache;
+        private readonly IDistributedCache distributedCache; //DistributedCache çağırıldı
         public LoginFilter(IDistributedCache _distributedCache)
         {
             distributedCache = _distributedCache;
