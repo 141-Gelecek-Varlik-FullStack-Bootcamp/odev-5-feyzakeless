@@ -8,13 +8,14 @@
 
 @{
     ViewBag.Title = "Pharmacy";
-    var authorizeId = ViewBag.Cache;
+    var authorizeId = ViewBag.Cache; <!--Cacheden authorizeId yi aldık,yetki kontrolu icin-->
 }
 
 <div class="product-list-wrapper w-75 m-auto">
     @if (authorizeId == 2) //Eğer eczacı değilse ekleme yapamaz
     {
         <div class="insert-button-wrapper d-flex justify-content-end mb-3">
+         <!--Medicine controllerdaki InsertMedicine'a istek atiyoruz-->
             <a class="insert-medicine-button btn btn-success" asp-action="InsertMedicine" asp-controller="Medicine">+ Insert Medicine</a>
         </div>
     }
@@ -47,7 +48,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model) //modeldeki verileri dondurduk
         {
             <tr>
                 @Html.HiddenFor(modelItem => item.Id)
@@ -72,12 +73,14 @@
                 @if (authorizeId == 2) //Eğer eczacı değilse güncelleme silme yapamaz
                 {
                     <td>
+                        <!--Medicine controllerdaki UpdateMedicine'a istek atiyoruz-->
                         <a class="btn btn-refreshing" data-toggle="tooltip" data-placement="bottom" title="Ürünü Güncelle" asp-action="UpdateMedicine" asp-controller="Medicine" asp-route-id="@item.Id" >
                             <i class="fas fa-sync-alt"></i>
                         </a>
                     </td>
                     <td>
-                            <a class="btn btn-danger btn-delete" data-toggle="tooltip" data-placement="bottom" title="Ürünü Sil" asp-action="DeleteMedicine" asp-controller="Medicine" asp-route-id="@item.Id">
+                        <!--Medicine controllerdaki DeleteMedicine'a istek atiyoruz-->
+                        <a class="btn btn-danger btn-delete" data-toggle="tooltip" data-placement="bottom" title="Ürünü Sil" asp-action="DeleteMedicine" asp-controller="Medicine" asp-route-id="@item.Id">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>
@@ -103,7 +106,8 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
+<script type="text/javascript"> 
+    
     let thElement = document.querySelectorAll("table thead th");
     thElement.forEach(item => item.classList.add("align-middle"));
     let tdElement = document.querySelectorAll("table tbody td");
