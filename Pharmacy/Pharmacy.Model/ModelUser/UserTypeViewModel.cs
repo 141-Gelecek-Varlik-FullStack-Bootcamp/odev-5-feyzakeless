@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pharmacy.Model.ModelUser
 {
-    //Kullanici turu modeli olusturuldu
+    //Kullanici turu(yetki) modeli olusturuldu
     public class UserTypeViewModel
     {
         public int Id { get; set; }
