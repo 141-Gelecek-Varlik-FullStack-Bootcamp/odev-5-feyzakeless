@@ -1,21 +1,45 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
+using Pharmacy.API.Controllers;
+using Pharmacy.API.Infrastructure;
 using Pharmacy.Model.ModelMedicine;
+using Pharmacy.Model.ModelUser;
 using Pharmacy.Service.MedicineServiceLayer;
-using Pharmacy.Service.UserServiceLayer;
 
 namespace Pharmacy.WEB.Controllers
 {
     public class MedicineController : Controller
     {
         private readonly IMedicineService medicineService;
+        private readonly IDistributedCache distributedCache;
 
-        public MedicineController( IMedicineService _medicineService)
+        public MedicineController( IMedicineService _medicineService, IDistributedCache _distributedCache)
         {
             medicineService = _medicineService;
+            distributedCache = _distributedCache;
+
         }
         public IActionResult Index()
         {
             return View();
+
+        }
+
+        public IActionResult ListMedicine()
+        {
+            var cachedData = distributedCache.GetString(CacheKeys.Login);
+            var response = new UserViewModel();
+
+            if (cachedData is not null)
+            {
+                response = JsonConvert.DeserializeObject<UserViewModel>(cachedData);
+                ViewBag.Cache = response.AuthorizeId;
+                ViewBag.Name = response.Name +" "+ response.Surname;
+            }
+
+            var model = medicineService.GetList().List;
+            return View(model);
         }
 
         public IActionResult InsertMedicine()
@@ -37,6 +61,7 @@ namespace Pharmacy.WEB.Controllers
         }
 
         [HttpGet]
+        //[ServiceFilter(typeof(AuthorizationFilter))]
         public IActionResult UpdateMedicine(int id)
         {
             var model = medicineService.GetById(id);
@@ -46,7 +71,7 @@ namespace Pharmacy.WEB.Controllers
         [HttpPost]
          public IActionResult UpdateMedicine(UptadeMedicineViewModel medicine, int id)
          {
-             var model = medicineService.Update(medicine , id);
+            var model = medicineService.Update(medicine , id);
 
              if (!model.IsSuccess)
              {
@@ -56,12 +81,10 @@ namespace Pharmacy.WEB.Controllers
              return RedirectToAction("Index", "Home");
          }
 
-
-        [HttpPost]
+        
          public IActionResult DeleteMedicine(int id)
          {
-             medicineService.Delete(id);
-
+            medicineService.Delete(id);
             return RedirectToAction("Index", "Home");
          }
          
