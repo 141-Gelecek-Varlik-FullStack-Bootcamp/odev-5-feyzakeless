@@ -26,6 +26,7 @@ namespace Pharmacy.WEB.Controllers
 
         }
 
+        //İlac listeleme
         public IActionResult ListMedicine()
         {
             var cachedData = distributedCache.GetString(CacheKeys.Login);
@@ -42,11 +43,13 @@ namespace Pharmacy.WEB.Controllers
             return View(model);
         }
 
+        //İlac ekleme(get)
         public IActionResult InsertMedicine()
         {
             return View();
         }
 
+        //İlac ekleme(post)
         [HttpPost]
         public IActionResult InsertMedicine(InsertMedicineViewModel newMedicine)
         {
@@ -60,14 +63,15 @@ namespace Pharmacy.WEB.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        //İlac guncelleme(get)
         [HttpGet]
-        //[ServiceFilter(typeof(AuthorizationFilter))]
         public IActionResult UpdateMedicine(int id)
         {
             var model = medicineService.GetById(id);
             return View(model.Entity);
         }
 
+        //İlac guncelleme(post)
         [HttpPost]
          public IActionResult UpdateMedicine(UptadeMedicineViewModel medicine, int id)
          {
@@ -81,8 +85,8 @@ namespace Pharmacy.WEB.Controllers
              return RedirectToAction("Index", "Home");
          }
 
-        
-         public IActionResult DeleteMedicine(int id)
+        //İlac silme
+        public IActionResult DeleteMedicine(int id)
          {
             medicineService.Delete(id);
             return RedirectToAction("Index", "Home");
