@@ -11,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap" rel="stylesheet">
 </head>
+@{
+    var userName = ViewBag.Name;
+}
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -22,22 +25,17 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @*Console.WriteLine(HttpContext.Current.Request.Url.AbsolutePath);*@
-                <div class="check-user-wrapper d-flex justify-content-end align-center text-center">
-                    <div class="user-symbol">
-                        <div class="user-letter">MÖ</div>
+                @if(userName is not null)
+                {
+                    <div class="check-user-wrapper d-flex justify-content-end align-center text-center">
+                            <div class="user-icon"><i class="far fa-user"></i></div>
+                        <div class="user-dropdown">
+                            <span></span>
+                            <div class="user-name">@userName</div>
+                            <div class="logout-btn"><i class="fas fa-sign-out-alt"></i><a>LogOut</a></div>
+                        </div>
                     </div>
-                </div>
-                <!---<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>-->
+                }
             </div>
         </nav>
     </header>
@@ -49,49 +47,140 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - Pharmacy.WEB <!-- - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>-->
+            &copy; 2021 - Pharmacy.WEB 
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" 
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>*@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-
 <style>
     body{
         font-family: 'Poppins', sans-serif;
     }
     .navbar-brand img{
-        max-height:60px;
+        max-height:85px;
     }
-    .check-user-wrapper .user-symbol{
-        border-radius: 50%;
-        text-transform: uppercase;
-        background-color: #eee;
-        width: 48px;
-        height: 48px;
-        line-height: 48px;
+    .check-user-wrapper{
+        position:relative;
+        cursor:pointer;
     }
-    .check-user-wrapper .user-letter{
-        font-weight: bold;
-        font-size: 16px;
-        letter-spacing: 1px;
+    .check-user-wrapper .user-icon i{
+        font-size:24px;
+        color: #818285;
+    }
+    .check-user-wrapper:hover .user-icon i{
+        font-size:24px;
+        color:#ff6a00;
+    }
+    .check-user-wrapper .user-dropdown{
+        display:none;
+        font-weight: 400;
+        background-color: #fff;
+        box-shadow: 0 3px 10px 0 rgb(0 0 0 / 7%);
+        border: solid 1px #e6e6e6;
+        border-radius: 6px;
+        position: absolute;
+        z-index: 999;
+        right: -90px;
+        width: 196px;
+        height: auto;
+        top: 40px;
+        padding: 10px;
+    }
+    .check-user-wrapper:hover .user-dropdown{
+        display:block;
+    }
+    .check-user-wrapper .user-dropdown::before{
+        content: "";
+        width: 100%;
+        height: 30px;
+        top: -30px;
+        left: 0;
+        position: absolute;
+    }
+    .check-user-wrapper:hover .user-dropdown span{
+        width: 15px;
+        height: 15px;
+        -ms-transform: rotate(45deg);
+        -webkit-transform: rotate( 
+    45deg);
+        transform: rotate( 
+    45deg);
+        position: absolute;
+        top: -9px;
+        left: calc(50% - 9px);
+        background-color: #fff;
+        border-left: solid 1px #e6e6e6;
+        border-top: solid 1px #e6e6e6;
+    }
+    .check-user-wrapper:hover .user-dropdown .logout-btn:hover{
+        color:#ff6a00;
+    }
+    .check-user-wrapper:hover .user-dropdown .logout-btn i{
+        margin-right:10px;
     }
     .container-fluid{
         position:relative;
     }
-    .login-wrapper{
+    form.update-form,
+    form.insert-form{
+        border: 1px solid #dee2e6;
+        background-color:#dee2e6;
+    }
+    .login-wrapper,
+    .signup-wrapper{
         background-image:url(https://www.principle-pharmacy.com/wp-content/uploads/2020/11/Untitled-11.jpg);
         background-repeat: no-repeat;
         background-position: center;
-        position: absolute;
-        margin-left: -1%;
-        margin-top: -1%;
     }
-     table .btn-refreshing{
+    .login-wrapper .login-body,
+    .signup-wrapper .signup-body{
+        background-color: rgb(0 0 0 / 75%);
+        border-radius: 8px;
+        margin: auto;
+        box-shadow: rgb(0 0 0 / 50%) 0px 5px 15px;
+    }
+    .login-wrapper .form-title,
+    .signup-wrapper .form-title{
+        text-align: center;
+        font-size: 4rem;
+        font-weight: 600;
+        padding-bottom: 15px;
+        color: #fff;
+    }
+    .login-wrapper button,
+    .signup-wrapper button{
+        width:100%;
+    }
+    .login-wrapper label,
+    .login-wrapper .form-text,
+    .login-wrapper .register-text,
+    .signup-wrapper label,
+    .signup-wrapper .form-text,
+    .signup-wrapper .register-text{
+        color:#fff;
+    }
+    .login-wrapper .register-text a,
+    .signup-wrapper .register-text a{
+        color:#ff6a00;
+    }
+    .signup-wrapper .auth-wrapper .desc{
+        border-radius:0.25rem;
+        color:#fff;
+    }
+    .signup-wrapper .auth-wrapper .desc p{
+        margin:0;
+    }
+    table .btn-refreshing{
         border: 1px solid #80808075;
+        background-color:#fff;
     } 
     table .btn-refreshing i{
         color: #2d15f6;
@@ -100,6 +189,15 @@
     table tr th,
     table tr td{
         text-align: center;
+    }
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #dee2e6;
+    }
+    .table-striped tbody tr:nth-of-type(odd) td{
+        border-right-color:#fff;
+    }
+    .table-striped tbody tr:nth-of-type(odd) td:last-child{
+        border-right-color:inherit;
     }
     .tooltip {
       position: relative;
