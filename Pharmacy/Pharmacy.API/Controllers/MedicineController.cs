@@ -49,6 +49,7 @@ namespace Pharmacy.API.Controllers
         //Id ye gore Ilac Guncelleme
         [HttpPut("{id}")]
         [ServiceFilter(typeof(LoginFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         public General<UptadeMedicineViewModel> Update([FromBody]  UptadeMedicineViewModel medicine , int id)
         {
             return medicineService.Update(medicine , id);
@@ -57,6 +58,7 @@ namespace Pharmacy.API.Controllers
         
         //İlac silme
         [HttpDelete("{id}")]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         public General<DeleteMedicineViewModel> Delete(int id)
         {
             return medicineService.Delete(id);
