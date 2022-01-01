@@ -37,5 +37,23 @@ namespace Pharmacy.WEB.Controllers
 
             return RedirectToAction("Login", "Home");
         }
+
+        public IActionResult ListUser()
+        {
+            return View(userService.GetUsers().List);
+        }
+
+        public IActionResult UpdateUser(int id)
+        {
+            var model  =userService.GetById(id);    
+            return View(model.Entity);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateUser(UserViewModel user)
+        {
+            var model = userService.Update(user.Id, user);
+            return RedirectToAction("UpdateUser", "User");
+        }
     }
 }

@@ -1,9 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Pharmacy.API.Infrastructure;
+using Pharmacy.Model;
 using Pharmacy.Model.ModelLogin;
+using Pharmacy.Model.ModelUser;
 using Pharmacy.Service.MedicineServiceLayer;
 using Pharmacy.Service.UserServiceLayer;
 using Pharmacy.WEB.Models;
+using System;
 using System.Diagnostics;
 
 namespace Pharmacy.WEB.Controllers
@@ -13,19 +19,20 @@ namespace Pharmacy.WEB.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IUserService userService;
         private readonly IMedicineService medicineService;
+        private readonly IDistributedCache distributedCache;
 
-        public HomeController(ILogger<HomeController> logger, IUserService _userService, IMedicineService _medicineService)
+        public HomeController(ILogger<HomeController> logger, IUserService _userService, IMedicineService _medicineService, IDistributedCache _distributedCache)
         {
             _logger = logger;
             userService = _userService;
-            medicineService = _medicineService;    
+            medicineService = _medicineService;
+            distributedCache = _distributedCache;
         }
 
        
         public IActionResult Index()
         {
-            var model = medicineService.GetList().List;
-            return View(model);
+            return View();
         }
 
         
@@ -37,14 +44,34 @@ namespace Pharmacy.WEB.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel loginUser)
         {
-            var model = userService.Login(loginUser);
+            /*var model = userService.Login(loginUser);
 
             if (!model.IsSuccess)
             {
                 return View();
-            }
+            }*/
 
-            return RedirectToAction("Index", "Home");
+            General<UserViewModel> _response = userService.Login(loginUser);
+            if (_response.IsSuccess)
+            {
+                var cachedData = distributedCache.GetString(CacheKeys.Login);
+                var cacheOptions = new DistributedCacheEntryOptions()
+                {
+                    AbsoluteExpiration = DateTime.Now.AddMinutes(5)
+                };
+                if (string.IsNullOrEmpty(cachedData))
+                {
+                    distributedCache.SetString(CacheKeys.Login, JsonConvert.SerializeObject(_response.Entity), cacheOptions);
+                }
+                
+
+                return RedirectToAction("ListMedicine", "Medicine");
+            }
+            else
+            {
+                return View();
+            }
+                
         }
 
 
