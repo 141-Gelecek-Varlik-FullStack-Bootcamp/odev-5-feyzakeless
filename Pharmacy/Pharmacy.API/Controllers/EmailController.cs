@@ -1,18 +1,30 @@
 ﻿using AutoMapper;
-using Pharmacy.Service.UserServiceLayer;
+using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Mvc;
+using MimeKit;
+using Pharmacy.Service.Job;
+using System.Globalization;
+using System.Threading.Tasks;
 
 namespace Pharmacy.API.Controllers
 {
-    public class EmailController 
+    public class EmailController : Controller   
     {
-        private readonly IUserService userService; //User service i çağırıyoruz.
+        private readonly IEmailOperation emailOperation; //Email service i çağırıyoruz.
         private readonly IMapper mapper;
 
-        public EmailController(IUserService _userService, IMapper _mapper)
+        public EmailController(IEmailOperation _emailOperation, IMapper _mapper)
         {
-            userService = _userService;
+            emailOperation = _emailOperation;
             mapper = _mapper;
         }
-        
+
+        public IActionResult sendEmail()
+        {
+            
+                return View();
+        }
+
+
     }
 }
