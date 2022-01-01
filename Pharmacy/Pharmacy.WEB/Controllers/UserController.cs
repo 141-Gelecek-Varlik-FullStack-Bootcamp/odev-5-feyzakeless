@@ -18,6 +18,7 @@ namespace Pharmacy.WEB.Controllers
             return View();
         }
 
+        //Kullanici ekleme(get)
         [HttpGet]
         public IActionResult InsertUser()
         {
@@ -25,6 +26,7 @@ namespace Pharmacy.WEB.Controllers
             
         }
 
+        //Kullanici ekleme(post)
         [HttpPost]
         public IActionResult InsertUser(UserViewModel newUser)
         {
@@ -38,17 +40,20 @@ namespace Pharmacy.WEB.Controllers
             return RedirectToAction("Login", "Home");
         }
 
+        //Kullanici listeleme
         public IActionResult ListUser()
         {
             return View(userService.GetUsers().List);
         }
 
+        //Kullanici guncelleme(get)
         public IActionResult UpdateUser(int id)
         {
             var model  =userService.GetById(id);    
             return View(model.Entity);
         }
 
+        //Kullanici guncelleme(post)
         [HttpPost]
         public IActionResult UpdateUser(UserViewModel user)
         {
