@@ -16,7 +16,7 @@ namespace Pharmacy.API.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IDistributedCache distributedCache;
+        private readonly IDistributedCache distributedCache; //DistributedCache çağırıldı
         private readonly IUserService userService;
         public LoginController(IDistributedCache _distributedCache, IUserService _userService)
         {
