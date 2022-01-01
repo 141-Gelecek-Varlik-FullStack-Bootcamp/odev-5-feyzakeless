@@ -24,7 +24,7 @@ namespace Pharmacy.API.Controllers
             userService = _userService;
         }
 
-       
+        
         [HttpPost]
         //UI tarafında çalışan ben sana email ve password göndericem,sen bana true/false dön diyor.
         public General<bool> Login([FromBody] LoginViewModel loginUser)

@@ -141,7 +141,7 @@ namespace Pharmacy.Service.MedicineServiceLayer
                 }
                 else
                 {
-                    result.ExceptionMessage = "Herhangi bir ürün bulunamadı.";
+                    result.ExceptionMessage = "Herhangi bir ilaç bulunamadı.";
                 }
             }
 
@@ -170,7 +170,6 @@ namespace Pharmacy.Service.MedicineServiceLayer
                         result.IsSuccess = false;
                     }
                 }
-
             return result;
         }
 

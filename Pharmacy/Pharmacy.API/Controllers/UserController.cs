@@ -24,6 +24,7 @@ namespace Pharmacy.API.Controllers
             mapper = _mapper;
         }
 
+        
         //Kullanici kayit ekleme
         [HttpPost]
         [ServiceFilter(typeof(LoginFilter))] //Attribute

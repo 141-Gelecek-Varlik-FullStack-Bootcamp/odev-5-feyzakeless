@@ -14,6 +14,9 @@ namespace Pharmacy.API.Infrastructure
             CreateMap<UserViewModel, Pharmacy.DB.Entities.User>();
             CreateMap<Pharmacy.DB.Entities.User, UserViewModel>();
 
+            CreateMap<UserTypeViewModel, Pharmacy.DB.Entities.UserType>();
+            CreateMap<Pharmacy.DB.Entities.UserType, UserTypeViewModel>();
+
             //Login Mapping
             CreateMap<LoginViewModel, Pharmacy.DB.Entities.User>();
             CreateMap<Pharmacy.DB.Entities.User, LoginViewModel>();

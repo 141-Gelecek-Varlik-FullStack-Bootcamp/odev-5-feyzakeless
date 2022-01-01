@@ -17,6 +17,7 @@ namespace Pharmacy.Service.UserServiceLayer
         public General<UserViewModel> Login(LoginViewModel loginUser);
         public General<UserViewModel> GetUsers();
         public General<UserViewModel> Update(int id, UserViewModel user);
+        public General<UserViewModel> GetById(int id);
         public General<UserViewModel> Delete(int id);
         public List<Pharmacy.DB.Entities.User> GetPatients();
     }

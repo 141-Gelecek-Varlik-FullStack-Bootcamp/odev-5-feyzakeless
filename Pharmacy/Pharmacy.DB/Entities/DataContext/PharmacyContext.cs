@@ -7,8 +7,6 @@ using Pharmacy.DB.Entities;
 
 namespace Pharmacy.DB.Entities.DataContext
 {
-
-    //Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Pharmacy;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities -Contextdir Entities/DataContext -Context PharmacyContext -Project Pharmacy.DB -StartUpProject Pharmacy.DB -NoPluralize -Force
     public partial class PharmacyContext : DbContext
     {
         public PharmacyContext()
@@ -23,6 +21,7 @@ namespace Pharmacy.DB.Entities.DataContext
         public virtual DbSet<Medicine> Medicine { get; set; }
         public virtual DbSet<Prescription> Prescription { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserType> UserType { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -144,6 +143,22 @@ namespace Pharmacy.DB.Entities.DataContext
                     .HasColumnName("UDatetime");
 
                 entity.Property(e => e.Uuser).HasColumnName("UUser");
+
+                entity.HasOne(d => d.Authorize)
+                    .WithMany(p => p.User)
+                    .HasForeignKey(d => d.AuthorizeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_User_UserType");
+            });
+
+            modelBuilder.Entity<UserType>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.TypeName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);

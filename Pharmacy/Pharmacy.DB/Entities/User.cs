@@ -26,6 +26,7 @@ namespace Pharmacy.DB.Entities
         public int? Uuser { get; set; }
         public bool IsSendEmail { get; set; }
 
+        public virtual UserType Authorize { get; set; }
         public virtual ICollection<Medicine> Medicine { get; set; }
         public virtual ICollection<Prescription> Prescription { get; set; }
     }

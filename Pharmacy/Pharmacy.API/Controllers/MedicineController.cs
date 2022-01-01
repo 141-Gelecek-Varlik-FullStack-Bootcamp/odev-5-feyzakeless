@@ -28,6 +28,7 @@ namespace Pharmacy.API.Controllers
         //İlac Ekleme
         [HttpPost]
         [ServiceFilter(typeof(LoginFilter))]
+        [ServiceFilter(typeof(AuthorizationFilter))]
         public General<InsertMedicineViewModel> Insert([FromBody] InsertMedicineViewModel newMedicine)
         {
             General<InsertMedicineViewModel> response = new();
@@ -35,7 +36,7 @@ namespace Pharmacy.API.Controllers
             return response;
         }
 
-
+        
         //İlac Listeleme
         [HttpGet]
         public General<ListMedicineViewModel> GetList()
@@ -44,13 +45,16 @@ namespace Pharmacy.API.Controllers
         }
 
 
+      
         //Id ye gore Ilac Guncelleme
         [HttpPut("{id}")]
+        [ServiceFilter(typeof(LoginFilter))]
         public General<UptadeMedicineViewModel> Update([FromBody]  UptadeMedicineViewModel medicine , int id)
         {
             return medicineService.Update(medicine , id);
         }
 
+        
         //İlac silme
         [HttpDelete("{id}")]
         public General<DeleteMedicineViewModel> Delete(int id)
