@@ -46,6 +46,14 @@ namespace Pharmacy.WEB.Controllers
         //İlac ekleme(get)
         public IActionResult InsertMedicine()
         {
+            var cachedData = distributedCache.GetString(CacheKeys.Login);
+            var response = new UserViewModel();
+
+            if (cachedData is not null)
+            {
+                response = JsonConvert.DeserializeObject<UserViewModel>(cachedData);
+                ViewBag.Name = response.Name + " " + response.Surname;
+            }
             return View();
         }
 
@@ -67,6 +75,15 @@ namespace Pharmacy.WEB.Controllers
         [HttpGet]
         public IActionResult UpdateMedicine(int id)
         {
+            var cachedData = distributedCache.GetString(CacheKeys.Login);
+            var response = new UserViewModel();
+
+            if (cachedData is not null)
+            {
+                response = JsonConvert.DeserializeObject<UserViewModel>(cachedData);
+                ViewBag.Name = response.Name + " " + response.Surname;
+            }
+
             var model = medicineService.GetById(id);
             return View(model.Entity);
         }
