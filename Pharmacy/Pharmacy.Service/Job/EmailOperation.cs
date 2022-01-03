@@ -47,6 +47,7 @@ namespace Pharmacy.Service.Job
                     {
                         //client.Connect("smtp@gmail.com", 465, false);
                         //client.Connect("smtp@gmail.com", 587, SecureSocketOptions.StartTls);
+                        //client.Connect("smtp.yandex.com", 465, true);
                         client.Connect("smtp@gmail.com", 587, false); //port a bağlanıyoruz
                         client.Authenticate("info@pharmacy.com", "visualstudio"); //kullanıcı adı ve şifreyi veriyoruz
                         client.Send(message); //mesajı gönderiyoruz
