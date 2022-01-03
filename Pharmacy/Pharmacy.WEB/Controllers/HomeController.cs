@@ -75,6 +75,14 @@ namespace Pharmacy.WEB.Controllers
                 
         }
 
+        public IActionResult RemoveCacheData()
+        {
+            
+            distributedCache.Remove(CacheKeys.Login);
+            return RedirectToAction("Login", "Home");
+            
+        }
+
 
         public IActionResult Privacy()
         {
