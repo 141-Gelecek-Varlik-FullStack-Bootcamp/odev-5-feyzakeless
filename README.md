@@ -9,22 +9,41 @@
 
 ## Arayüzdan Örnekler
 
-###Login Sayfasý
+### Login Sayfasý
 
-<div align="center"><img src="~/wwwroot/img/login.PNG"></div>
+<div align="center"><img src="Pharmacy/Pharmacy.WEB/wwwroot/img/login.PNG"></div>
 
-###SignUp Sayfasý
+### SignUp Sayfasý
 
-<div align="center"><img src="~/wwwroot/img/signup.PNG"></div>
+<div align="center"><img src="Pharmacy/Pharmacy.WEB/wwwroot/img/signup.PNG"></div>
 
-###Ýlaç Listeleme Sayfasý
+### Ýlaç Listeleme Sayfasý
 
-<div align="center"><img src="~/wwwroot/img/medicineList.PNG"></div>
+<div align="center"><img src="Pharmacy/Pharmacy.WEB/wwwroot/img/medicineList.PNG"></div>
 
-###Ýlaç Ekleme Sayfasý
+### Ýlaç Ekleme Sayfasý
 
-<div align="center"><img src="~/wwwroot/img/insertMedicine.PNG"></div>
+* Giren kullanýcý eczacý ise ilaç ekleme yapabilir.
 
-###Ýlaç Güncelleme Sayfasý
+<div align="center"><img src="Pharmacy/Pharmacy.WEB/wwwroot/img/insertMedicine.PNG"></div>
 
-<div align="center"><img src="~/wwwroot/img/updateMedicine.PNG"></div>
+### Ýlaç Güncelleme Sayfasý
+
+* Giren kullanýcý eczacý ise ilaç güncelleme yapabilir.
+
+<div align="center"><img src="Pharmacy/Pharmacy.WEB/wwwroot/img/updateMedicine.PNG"></div>
+
+### Liste Sayfasýnýn Yetkisiz Eleman Giriþ Yaptýðýnda Görünümü
+
+* Giren kullanýcý eczacý deðilse, güncelleme ve silme butonlarý kaldýrýldý. 
+* Giren kullanýcý doktor ise, kullanýcýlarý görüntüleyebileceði alan eklendi.
+
+<div align="center"><img src="Pharmacy/Pharmacy.WEB/wwwroot/img/unauthMedicineList.PNG"></div>
+
+### Kullanýcý Listeleme Sayfasý
+
+<div align="center"><img src="Pharmacy/Pharmacy.WEB/wwwroot/img/userList.PNG"></div>
+
+### Kullanýcýnýn Sistemden Çýkýþ Yapabileceði Alan
+
+<div align="center"><img src="Pharmacy/Pharmacy.WEB/wwwroot/img/logOut.PNG"></div>
