@@ -13,6 +13,7 @@
 </head>
 @{
     var userName = ViewBag.Name;
+    var cache = ViewBag.Cache;
 }
 <body>
     <header>
@@ -25,17 +26,25 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                @if(userName is not null)
-                {
-                    <div class="check-user-wrapper d-flex justify-content-end align-center text-center">
-                            <div class="user-icon"><i class="far fa-user"></i></div>
-                        <div class="user-dropdown">
-                            <span></span>
-                            <div class="user-name">@userName</div>
-                            <div class="logout-btn"><i class="fas fa-sign-out-alt"></i><a>LogOut</a></div>
+                <div class="left-side d-flex justify-content-end align-center text-center">
+                    @if(cache == 3)//Doktor ise
+                    {
+                        <div class="user-list mr-4">
+                            <a asp-controller="User" asp-action="ListUser">Kullanıcılar</a>
                         </div>
-                    </div>
-                }
+                    }
+                    @if(userName is not null)
+                    {
+                        <div class="check-user-wrapper">
+                            <div class="user-icon"><i class="far fa-user"></i></div>
+                            <div class="user-dropdown">
+                                <span></span>
+                                <div class="user-name">@userName</div>
+                                <div class="logout-btn"><a asp-controller ="Home" asp-action="RemoveCacheData"><i class="fas fa-sign-out-alt"></i>LogOut</a></div>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
         </nav>
     </header>
@@ -67,13 +76,18 @@
     .navbar-brand img{
         max-height:85px;
     }
+    .left-side .user-list a{
+        color: #818285;
+        font-size: 18px;
+        font-weight: 500;
+    }
     .check-user-wrapper{
         position:relative;
-        cursor:pointer;
     }
     .check-user-wrapper .user-icon i{
         font-size:24px;
         color: #818285;
+        cursor:pointer;
     }
     .check-user-wrapper:hover .user-icon i{
         font-size:24px;
@@ -120,8 +134,12 @@
         border-left: solid 1px #e6e6e6;
         border-top: solid 1px #e6e6e6;
     }
-    .check-user-wrapper:hover .user-dropdown .logout-btn:hover{
+    .check-user-wrapper:hover .user-dropdown .logout-btn a {
+        color: #212529;
+    }
+    .check-user-wrapper:hover .user-dropdown .logout-btn:hover a{
         color:#ff6a00;
+        text-decoration: auto;
     }
     .check-user-wrapper:hover .user-dropdown .logout-btn i{
         margin-right:10px;
