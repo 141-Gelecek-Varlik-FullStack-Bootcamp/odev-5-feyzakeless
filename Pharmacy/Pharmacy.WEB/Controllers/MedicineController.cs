@@ -36,6 +36,7 @@ namespace Pharmacy.WEB.Controllers
             {
                 response = JsonConvert.DeserializeObject<UserViewModel>(cachedData);
                 ViewBag.Cache = response.AuthorizeId;
+                ViewBag.Id = response.Id;
                 ViewBag.Name = response.Name +" "+ response.Surname;
             }
 
@@ -53,6 +54,7 @@ namespace Pharmacy.WEB.Controllers
             {
                 response = JsonConvert.DeserializeObject<UserViewModel>(cachedData);
                 ViewBag.Name = response.Name + " " + response.Surname;
+                ViewBag.Id = response.Id;
             }
             return View();
         }
@@ -82,6 +84,7 @@ namespace Pharmacy.WEB.Controllers
             {
                 response = JsonConvert.DeserializeObject<UserViewModel>(cachedData);
                 ViewBag.Name = response.Name + " " + response.Surname;
+                ViewBag.Id = response.Id;
             }
 
             var model = medicineService.GetById(id);
