@@ -1,7 +1,9 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
+
 @{
+    var message = ViewBag.Message;
 }
 
 @model Pharmacy.Model.ModelUser.UserViewModel
@@ -29,12 +31,20 @@
 
         <div class="mb-3">
             <label for="Email" class="form-label">Email</label>
-            <input type="text" name="Email" class="form-control" id="price" value="@Model.Email" disable>
+            <input type="text" name="Email" class="form-control" id="price" value="@Model.Email">
         </div>
 
         <div class="button-wrapper d-flex justify-content-end mt-4">
             <button type="submit" class="btn btn-primary">Update</button>
         </div>
+        <div class="alert alert-success d-none" role="alert">@message</div>
     </form>
 </div>
+<script>
+    var alert = document.querySelector(".alert-success");
+    if(@message){
+        alert.classList.Remove("d-none");
+        alert.classList.Remove("d-block");
+    }
+</script>
 

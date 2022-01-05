@@ -54,6 +54,7 @@ namespace Pharmacy.WEB.Controllers
             if (cachedData is not null)
             {
                 response = JsonConvert.DeserializeObject<UserViewModel>(cachedData);
+                ViewBag.Id = response.Id;
                 ViewBag.Cache = response.AuthorizeId;
                 ViewBag.Name = response.Name + " " + response.Surname;
             }
@@ -74,6 +75,10 @@ namespace Pharmacy.WEB.Controllers
         public IActionResult UpdateUser(UserViewModel user)
         {
             var model = userService.Update(user.Id, user);
+            if(model.Entity is not null)
+            {
+                ViewBag.Message = "Your information has been updated.";
+            }
             return RedirectToAction("UpdateUser", "User");
         }
     }

@@ -129,7 +129,7 @@ namespace Pharmacy.Service.MedicineServiceLayer
 
             using (var context = new PharmacyContext())
             {
-                // eğer ürün aktif ve silinmemişse Id'sine göre listeliyoruz
+                // eğer ürün silinmemişse Id'sine göre listeliyoruz
                 var data = context.Medicine.
                             SingleOrDefault(x => x.Id == id && !x.IsDeleted);
 

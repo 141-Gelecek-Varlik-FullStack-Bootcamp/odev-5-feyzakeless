@@ -108,7 +108,7 @@ namespace Pharmacy.Service.UserServiceLayer
                     updateUser.Name = user.Name;
                     updateUser.Surname = user.Surname;
                     updateUser.Email = user.Email;
-                    updateUser.Password = user.Password;
+                    //updateUser.Password = user.Password;
 
                     
                     context.SaveChanges();
@@ -132,11 +132,9 @@ namespace Pharmacy.Service.UserServiceLayer
 
             using (var context = new PharmacyContext())
             {
-                
                 var data = context.User.
                             SingleOrDefault(x => x.Id == id && !x.IsDeleted);
 
-               
                 if (data is not null)
                 {
                     result.Entity = mapper.Map<UserViewModel>(data);
